@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arsip Dokumen Kepegawaian TVRI Kepri</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #202124;
+            line-height: 1.5;
+        }
+        
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .form-header {
+            background-color: #fff;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .form-title {
+            font-size: 32px;
+            font-weight: 400;
+            margin: 0 0 8px 0;
+            color: #1a73e8;
+        }
+        
+        .form-description {
+            font-size: 14px;
+            color: #5f6368;
+            margin: 0 0 16px 0;
+        }
+        
+        .account-info {
+            background-color: #f8f9fa;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            padding: 16px;
+            margin-bottom: 16px;
+            font-size: 14px;
+            color: #5f6368;
+        }
+        
+        .account-email {
+            font-weight: 500;
+            color: #202124;
+        }
+        
+        .form-section {
+            background-color: #fff;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .question-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin: 0 0 8px 0;
+        }
+        
+        .required-asterisk {
+            color: #d93025;
+        }
+        
+        .question-description {
+            font-size: 14px;
+            color: #5f6368;
+            margin: 0 0 16px 0;
+        }
+        
+        .text-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .file-upload-area {
+            border: 1px dashed #dadce0;
+            border-radius: 4px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 16px;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .file-upload-area:hover {
+            border-color: #1a73e8;
+            background-color: #f8fafe;
+        }
+        
+        .file-upload-area.dragover {
+            border-color: #1a73e8;
+            background-color: #e8f0fe;
+        }
+        
+        .upload-icon {
+            font-size: 48px;
+            color: #5f6368;
+            margin-bottom: 16px;
+        }
+        
+        .upload-text {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .upload-subtext {
+            font-size: 14px;
+            color: #5f6368;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .selected-files {
+            margin-top: 16px;
+        }
+        
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            border: 1px solid #e8eaed;
+        }
+        
+        .file-icon {
+            margin-right: 12px;
+            color: #5f6368;
+            font-size: 20px;
+        }
+        
+        .file-info {
+            flex-grow: 1;
+        }
+        
+        .file-name {
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        .file-size {
+            font-size: 12px;
+            color: #5f6368;
+            margin: 0;
+        }
+        
+        .remove-file {
+            color: #d93025;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 4px;
+            background: none;
+            border: none;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 24px;
+            gap: 12px;
+        }
+        
+        .submit-button {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-button:hover {
+            background-color: #1669d9;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .submit-button:disabled {
+            background-color: #dadce0;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        
+        .clear-button {
+            background-color: transparent;
+            color: #1a73e8;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .clear-button:hover {
+            background-color: #f8fafe;
+        }
+        
+        .progress-bar {
+            height: 4px;
+            background-color: #e0e0e0;
+            border-radius: 2px;
+            margin-top: 8px;
+            overflow: hidden;
+            display: none;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: #1a73e8;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .success-message {
+            background-color: #e6f4ea;
+            border: 1px solid #34a853;
+            border-radius: 4px;
+            padding: 16px;
+            margin-top: 16px;
+            display: none;
+        }
+        
+        .error-message {
+            background-color: #fce8e6;
+            border: 1px solid #d93025;
+            border-radius: 4px;
+            padding: 16px;
+            margin-top: 16px;
+            display: none;
+        }
+        
+        .file-count {
+            font-size: 12px;
+            color: #5f6368;
+            margin-top: 8px;
+        }
+        
+        .section-divider {
+            height: 1px;
+            background-color: #dadce0;
+            margin: 24px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-header">
+            <h1 class="form-title">Arsip Dokumen Kepegawaian TVRI Kepri</h1>
+            <p class="form-description">Adapun data ini bertujuan untuk memenuhi kebutuhan pengarsipan dokumen kepegawaian di TVRI Stasiun Kepulauan Riau yang memudahkan dalam penilaian kinerja, pengelolaan sumber daya manusia dan proses pengembangan pegawai.</p>
+        </div>
+        
+        <form id="uploadForm" enctype="multipart/form-data">
+            <div class="form-section">
+                <h2 class="question-title">Nama Pegawai (dengan gelar) <span class="required-asterisk">*</span></h2>
+                <input type="text" id="namaPegawai" name="namaPegawai" class="text-input" placeholder="Your answer" required>
+            </div>
+            
+            <div class="form-section">
+                <h2 class="question-title">Ijazah SMA/SMK/SLTA <span class="required-asterisk">*</span></h2>
+                <p class="question-description">Upload file ijazah SMA/SMK/SLTA. Format yang didukung: PDF, JPG, PNG (Maks. 10MB per file)</p>
+                
+                <div class="file-upload-area" id="ijazahSmaArea">
+                    <div class="upload-icon">📁</div>
+                    <p class="upload-text">Klik untuk memilih file atau tarik dan lepas file di sini</p>
+                    <p class="upload-subtext">Maksimal 5 file, masing-masing maksimal 10MB</p>
+                    <input type="file" id="ijazahSmaInput" class="file-input" multiple accept=".pdf,.jpg,.jpeg,.png">
+                </div>
+                
+                <div class="selected-files" id="ijazahSmaList"></div>
+                <div class="file-count" id="ijazahSmaCount">0 file dipilih</div>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <div class="form-section">
+                <h2 class="question-title">Ijazah D3/S1/S2/S3 <span class="required-asterisk">*</span></h2>
+                <p class="question-description">Upload file ijazah D3/S1/S2/S3. Format yang didukung: PDF, JPG, PNG (Maks. 10MB per file)</p>
+                
+                <div class="file-upload-area" id="ijazahSarjanaArea">
+                    <div class="upload-icon">📁</div>
+                    <p class="upload-text">Klik untuk memilih file atau tarik dan lepas file di sini</p>
+                    <p class="upload-subtext">Maksimal 5 file, masing-masing maksimal 10MB</p>
+                    <input type="file" id="ijazahSarjanaInput" class="file-input" multiple accept=".pdf,.jpg,.jpeg,.png">
+                </div>
+                
+                <div class="selected-files" id="ijazahSarjanaList"></div>
+                <div class="file-count" id="ijazahSarjanaCount">0 file dipilih</div>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <div class="form-section">
+                <h2 class="question-title">Akta Kelahiran Pegawai <span class="required-asterisk">*</span></h2>
+                <p class="question-description">Upload file akta kelahiran. Format yang didukung: PDF, JPG, PNG (Maks. 10MB per file)</p>
+                
+                <div class="file-upload-area" id="aktaKelahiranArea">
+                    <div class="upload-icon">📁</div>
+                    <p class="upload-text">Klik untuk memilih file atau tarik dan lepas file di sini</p>
+                    <p class="upload-subtext">Maksimal 5 file, masing-masing maksimal 10MB</p>
+                    <input type="file" id="aktaKelahiranInput" class="file-input" multiple accept=".pdf,.jpg,.jpeg,.png">
+                </div>
+                
+                <div class="selected-files" id="aktaKelahiranList"></div>
+                <div class="file-count" id="aktaKelahiranCount">0 file dipilih</div>
+            </div>
+            
+            <div class="form-actions">
+                <button type="button" class="clear-button" id="clearButton">Clear form</button>
+                <button type="submit" class="submit-button" id="submitButton">Submit</button>
+            </div>
+            
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </form>
+        
+        <div class="success-message" id="successMessage">
+            <strong>Berhasil!</strong> Berkas Anda telah berhasil diupload dan disimpan di server.
+        </div>
+        
+        <div class="error-message" id="errorMessage">
+            <strong>Error!</strong> Terjadi masalah saat mengupload berkas. Silakan coba lagi.
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elemen untuk ijazah SMA
+            const ijazahSmaArea = document.getElementById('ijazahSmaArea');
+            const ijazahSmaInput = document.getElementById('ijazahSmaInput');
+            const ijazahSmaList = document.getElementById('ijazahSmaList');
+            const ijazahSmaCount = document.getElementById('ijazahSmaCount');
+            
+            // Elemen untuk ijazah Sarjana
+            const ijazahSarjanaArea = document.getElementById('ijazahSarjanaArea');
+            const ijazahSarjanaInput = document.getElementById('ijazahSarjanaInput');
+            const ijazahSarjanaList = document.getElementById('ijazahSarjanaList');
+            const ijazahSarjanaCount = document.getElementById('ijazahSarjanaCount');
+            
+            // Elemen untuk akta kelahiran
+            const aktaKelahiranArea = document.getElementById('aktaKelahiranArea');
+            const aktaKelahiranInput = document.getElementById('aktaKelahiranInput');
+            const aktaKelahiranList = document.getElementById('aktaKelahiranList');
+            const aktaKelahiranCount = document.getElementById('aktaKelahiranCount');
+            
+            // Elemen umum
+            const submitButton = document.getElementById('submitButton');
+            const clearButton = document.getElementById('clearButton');
+            const progressBar = document.getElementById('progressBar');
+            const progressFill = document.getElementById('progressFill');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            const uploadForm = document.getElementById('uploadForm');
+            
+            // Data file untuk setiap kategori
+            const fileData = {
+                ijazahSma: [],
+                ijazahSarjana: [],
+                aktaKelahiran: []
+            };
+            
+            const maxFiles = 5;
+            const maxFileSize = 10 * 1024 * 1024; // 10MB
+            
+            // Setup untuk setiap area upload
+            setupUploadArea(ijazahSmaArea, ijazahSmaInput, 'ijazahSma');
+            setupUploadArea(ijazahSarjanaArea, ijazahSarjanaInput, 'ijazahSarjana');
+            setupUploadArea(aktaKelahiranArea, aktaKelahiranInput, 'aktaKelahiran');
+            
+            function setupUploadArea(area, input, category) {
+                // Event listeners untuk drag and drop
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    area.addEventListener(eventName, preventDefaults, false);
+                });
+                
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    area.addEventListener(eventName, () => highlight(area), false);
+                });
+                
+                ['dragleave', 'drop'].forEach(eventName => {
+                    area.addEventListener(eventName, () => unhighlight(area), false);
+                });
+                
+                area.addEventListener('drop', (e) => handleDrop(e, category), false);
+                area.addEventListener('click', () => input.click());
+                input.addEventListener('change', () => handleFileSelect(input, category));
+            }
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            function highlight(area) {
+                area.classList.add('dragover');
+            }
+            
+            function unhighlight(area) {
+                area.classList.remove('dragover');
+            }
+            
+            function handleDrop(e, category) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                handleFiles(files, category);
+            }
+            
+            function handleFileSelect(input, category) {
+                const files = input.files;
+                handleFiles(files, category);
+            }
+            
+            function handleFiles(files, category) {
+                if (fileData[category].length + files.length > maxFiles) {
+                    alert(`Anda hanya dapat mengupload maksimal ${maxFiles} file untuk ${getCategoryName(category)}.`);
+                    return;
+                }
+                
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    
+                    if (file.size > maxFileSize) {
+                        alert(`File "${file.name}" terlalu besar. Maksimal ukuran file adalah 10MB.`);
+                        continue;
+                    }
+                    
+                    // Cek apakah file sudah ada
+                    if (fileData[category].some(f => f.name === file.name && f.size === file.size)) {
+                        alert(`File "${file.name}" sudah dipilih.`);
+                        continue;
+                    }
+                    
+                    fileData[category].push(file);
+                }
+                
+                updateFileList(category);
+                updateSubmitButton();
+            }
+            
+            function getCategoryName(category) {
+                switch(category) {
+                    case 'ijazahSma': return 'Ijazah SMA/SMK/SLTA';
+                    case 'ijazahSarjana': return 'Ijazah D3/S1/S2/S3';
+                    case 'aktaKelahiran': return 'Akta Kelahiran';
+                    default: return 'Berkas';
+                }
+            }
+            
+            function updateFileList(category) {
+                const listElement = document.getElementById(`${category}List`);
+                const countElement = document.getElementById(`${category}Count`);
+                
+                listElement.innerHTML = '';
+                
+                fileData[category].forEach((file, index) => {
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    
+                    const fileIcon = document.createElement('div');
+                    fileIcon.className = 'file-icon';
+                    fileIcon.innerHTML = getFileIcon(file);
+                    
+                    const fileInfo = document.createElement('div');
+                    fileInfo.className = 'file-info';
+                    
+                    const fileName = document.createElement('p');
+                    fileName.className = 'file-name';
+                    fileName.textContent = file.name;
+                    
+                    const fileSize = document.createElement('p');
+                    fileSize.className = 'file-size';
+                    fileSize.textContent = formatFileSize(file.size);
+                    
+                    fileInfo.appendChild(fileName);
+                    fileInfo.appendChild(fileSize);
+                    
+                    const removeFile = document.createElement('button');
+                    removeFile.className = 'remove-file';
+                    removeFile.innerHTML = '×';
+                    removeFile.addEventListener('click', () => removeFileAtIndex(index, category));
+                    
+                    fileItem.appendChild(fileIcon);
+                    fileItem.appendChild(fileInfo);
+                    fileItem.appendChild(removeFile);
+                    
+                    listElement.appendChild(fileItem);
+                });
+                
+                countElement.textContent = `${fileData[category].length} file dipilih`;
+            }
+            
+            function getFileIcon(file) {
+                const ext = file.name.split('.').pop().toLowerCase();
+                
+                switch(ext) {
+                    case 'pdf':
+                        return '📄';
+                    case 'jpg':
+                    case 'jpeg':
+                    case 'png':
+                        return '🖼️';
+                    default:
+                        return '📎';
+                }
+            }
+            
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+            
+            function removeFileAtIndex(index, category) {
+                fileData[category].splice(index, 1);
+                updateFileList(category);
+                updateSubmitButton();
+            }
+            
+            function clearFiles() {
+                fileData.ijazahSma = [];
+                fileData.ijazahSarjana = [];
+                fileData.aktaKelahiran = [];
+                
+                ijazahSmaInput.value = '';
+                ijazahSarjanaInput.value = '';
+                aktaKelahiranInput.value = '';
+                
+                updateFileList('ijazahSma');
+                updateFileList('ijazahSarjana');
+                updateFileList('aktaKelahiran');
+                
+                document.getElementById('namaPegawai').value = '';
+                
+                updateSubmitButton();
+            }
+            
+            function updateSubmitButton() {
+                const namaPegawai = document.getElementById('namaPegawai').value.trim();
+                const hasFiles = fileData.ijazahSma.length > 0 || 
+                                fileData.ijazahSarjana.length > 0 || 
+                                fileData.aktaKelahiran.length > 0;
+                
+                submitButton.disabled = !namaPegawai || !hasFiles;
+            }
+            
+            // Event listener untuk input nama pegawai
+            document.getElementById('namaPegawai').addEventListener('input', updateSubmitButton);
+            
+            clearButton.addEventListener('click', clearFiles);
+            uploadForm.addEventListener('submit', handleFormSubmit);
+            
+            function handleFormSubmit(e) {
+                e.preventDefault();
+                
+                // Validasi form
+                const namaPegawai = document.getElementById('namaPegawai').value.trim();
+                
+                if (!namaPegawai) {
+                    alert('Harap lengkapi nama pegawai.');
+                    return;
+                }
+                
+                const totalFiles = fileData.ijazahSma.length + fileData.ijazahSarjana.length + fileData.aktaKelahiran.length;
+                if (totalFiles === 0) {
+                    alert('Harap pilih setidaknya satu file untuk diupload.');
+                    return;
+                }
+                
+                // Tampilkan progress bar
+                progressBar.style.display = 'block';
+                submitButton.disabled = true;
+                clearButton.disabled = true;
+                
+                // Kirim ke backend
+                const formData = new FormData();
+                formData.append('namaPegawai', namaPegawai);
+                fileData.ijazahSma.forEach(f => formData.append('ijazahSma', f));
+                fileData.ijazahSarjana.forEach(f => formData.append('ijazahSarjana', f));
+                fileData.aktaKelahiran.forEach(f => formData.append('aktaKelahiran', f));
+
+                fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(data => {
+                    progressBar.style.display = 'none';
+                    if (data.success) {
+                        successMessage.style.display = 'block';
+                        uploadForm.reset();
+                        clearFiles();
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                            submitButton.disabled = false;
+                            clearButton.disabled = false;
+                        }, 5000);
+                    } else {
+                        errorMessage.style.display = 'block';
+                    }
+                })
+                .catch(() => {
+                    progressBar.style.display = 'none';
+                    errorMessage.style.display = 'block';
+                });
+            } 
+        });
+    </script>
+</body>
+</html>
